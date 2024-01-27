@@ -25,7 +25,7 @@ public class AddAlumnoActivity extends AppCompatActivity {
 
         binding.btnCancelarAddAlumno.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 setResult(RESULT_CANCELED);
                 finish();
             }
@@ -33,7 +33,7 @@ public class AddAlumnoActivity extends AppCompatActivity {
 
         binding.btnCrearAddAlumno.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 //crear alumno y añadir los datos de la vista
                 Alumno alumno = crearAlumno();
                 if(alumno==null){
@@ -45,7 +45,6 @@ public class AddAlumnoActivity extends AppCompatActivity {
                     bundle.putSerializable("ALUMNO",alumno);
                     intent.putExtras(bundle);
                     setResult(RESULT_OK, intent);
-
                     //terminar
                     finish();
                 }
@@ -57,11 +56,16 @@ public class AddAlumnoActivity extends AppCompatActivity {
         String nombre = binding.txtNombreAddAlumno.getText().toString();
         String apellidos = binding.txtApellidosAddAlumno.getText().toString();
         String ciclo = binding.spCiclosAddAlumno.getSelectedItem().toString();
-        char grupo = 'v';
-        RadioButton rb = findViewById(binding.rgGrupoAddAlumno.getCheckedRadioButtonId());
-        grupo = rb.getText().charAt(rb.getText().length()-1);
+        char grupo = 0;
 
-        if(nombre.isEmpty() || apellidos.isEmpty() || ciclo.isEmpty() || grupo=='v'){
+        if(binding.rbGrupoAAddAlumno.isChecked()
+        || binding.rbGrupoBAddAlumno.isChecked()
+        || binding.rbGrupoCAddAlumno.isChecked()){
+            RadioButton rb = findViewById(binding.rgGrupoAddAlumno.getCheckedRadioButtonId());
+            grupo = rb.getText().charAt(rb.getText().length()-1);
+        }
+
+        if(nombre.isEmpty() || apellidos.isEmpty() || ciclo.isEmpty() || grupo==0){
             return null;
         }else{
             return new Alumno(nombre, apellidos, ciclo, grupo);
