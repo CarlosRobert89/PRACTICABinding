@@ -13,7 +13,6 @@ import carlos.robert.binding.Modelos.Alumno;
 import carlos.robert.binding.databinding.ActivityAddAlumnoBinding;
 
 public class AddAlumnoActivity extends AppCompatActivity {
-
     private ActivityAddAlumnoBinding binding;
 
     @Override
